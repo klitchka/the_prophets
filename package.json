@@ -1,0 +1,24 @@
+{
+  "name": "starknet-react-kit",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@starknet-react/chains": "^0.1.0-next.0",
+    "@starknet-react/core": "^2.0.0-next.0",
+    "@toruslabs/openlogin": "^6.0.0",
+    "@toruslabs/openlogin-starkkey": "^3.2.0",
+    "encoding": "^0.1.13",
+    "eslint": "8.49.0",
+    "eslint-config-next": "13.5.1",
+    "next": "13.5.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "starknetkit": "^1.0.9"
+  }
+}
