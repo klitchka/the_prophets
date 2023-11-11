@@ -6,6 +6,8 @@ import Connect from "./components/Connect";
 import OpenLogin from "@toruslabs/openlogin";
 import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
 import FootballGif from "../../public/football.gif";
+import Transfer from "./components/Transfer";
+import Balance from "./components/Balance";
 
 function Home() {
   const { connect, connectors } = useConnect();
@@ -38,17 +40,31 @@ function Home() {
 
   async function handleLogin() {
     if (sdkInstance) {
-      const privKey = await sdkInstance.login({
-        loginProvider: "google",
-        redirectUrl: `${window.origin}`,
-      });
-      return privKey;
+      if (isConnected) {
+        await disconnect();
+      } else {
+        const privKey = await sdkInstance.login({
+          loginProvider: "google",
+          redirectUrl: `${window.origin}`,
+        });
+        return privKey;
+      }
     }
   }
 
-  // ... código restante ...
+  const handleSignMessage = async () => {
+    if (sdkInstance) {
+      try {
+        const signature = await sdkInstance.signMessage("Mensaje a firmar");
+        console.log("Firma de mensaje:", signature);
+      } catch (error) {
+        console.error("Error al firmar mensaje:", error);
+      }
+    }
+  };
 
   return (
+
     <div className={styles.hero_container}>
       <div className={styles.hero_child_container}>
         <h1 className={styles.hero_heading}>Sports</h1>
@@ -62,6 +78,16 @@ function Home() {
         <Image src={FootballGif} priority className={styles.hero_image} />
       </div>
     </div>
+
+    /*<main className={styles.main}>
+      <button onClick={handleLogin} className={styles.connectbtn}>
+        {isConnected ? "Desconectar wallet" : "Sign in with Google"}
+      </button>
+      <Connect />
+      <Transfer sdkInstance={sdkInstance} />
+      <Balance sdkInstance={sdkInstance} />
+
+    </main>*/
   );
 }
 
