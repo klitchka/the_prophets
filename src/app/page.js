@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
+import Connect from "./components/Connect";
 import OpenLogin from "@toruslabs/openlogin";
 import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
 
@@ -52,6 +53,9 @@ function Home() {
       <button onClick={handleLogin} className={styles.connectbtn}>
         Iniciar sesión con Google
       </button>
+      <div>
+          <Connect />
+        </div>
       {/* ... código restante ... */}
     </main>
   );
