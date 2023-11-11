@@ -127,12 +127,12 @@ function Marketplace() {
                 <div className={styles.each_row} key={index}>
                   <div className={styles.row_match_details}>
                     <div className={styles.team_name}>
-                      <div className={styles.logo} />
+                    <img className={styles.logoSmall} src="/arsenal.png" alt="Arsenal" />
                       <p>{data.team1}</p>
                     </div>
                     <p>vs</p>
                     <div className={styles.team_name}>
-                      <div className={styles.logo} />
+                    <img className={styles.logoSmall} src="/chelsey.png" alt="Chelsea" />
                       <p>{data.team2}</p>
                     </div>
                   </div>
