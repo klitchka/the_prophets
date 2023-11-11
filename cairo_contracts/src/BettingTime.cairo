@@ -10,18 +10,6 @@ use starknet::{
 };
 
 #[starknet::interface]
-trait IERC20<T> {
-    fn name(self: @T) -> felt252;
-    fn totalSupply(self: @T) -> u256;
-    fn symbol(self: @T) -> felt252;
-    fn balanceOf(self: @T, account: ContractAddress) -> u256;
-    fn transfer_from(
-        ref self: T, sender: ContractAddress, recipient: ContractAddress, amount: u256
-    ) -> bool;
-    fn transfer(ref self: T, recipient: ContractAddress, amount: u256) -> bool;
-}
-
-#[starknet::interface]
 trait BettingTimeTrait<TContractState> {
     fn takeBet(ref self: TContractState, amount: u256);//bool to check if the withdraw has been made
     // fn withdraw(ref self: @TContractState) -> bool;//bool to check if the withdraw has been made
@@ -34,7 +22,8 @@ mod BettingTime {
     use starknet::{ContractAddress, get_caller_address, get_contract_address};
     use traits::{Into, TryInto};
     // use super::IBet;
-    use super::{IERC20Dispatcher, IERC20DispatcherTrait};
+    // use super::{IERC20Dispatcher, IERC20DispatcherTrait};
+    use test::erc20::{IERC20Dispatcher, IERC20DispatcherTrait};
 
     #[storage]
     struct Storage {
