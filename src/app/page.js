@@ -5,6 +5,8 @@ import Image from "next/image";
 import Connect from "./components/Connect";
 import OpenLogin from "@toruslabs/openlogin";
 import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
+import Transfer from "./components/Transfer";
+import Balance from "./components/Balance";
 
 function Home() {
   const { connect, connectors } = useConnect();
@@ -19,7 +21,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     const sdk = new OpenLogin({
       clientId: "the_prophets",
       network: "testnet"
@@ -30,33 +32,45 @@ function Home() {
         // Aquí es donde debes poner tu código real
       }
       setSdk(sdk);
-      setLoading(false)
+      setLoading(false);
     }
     initializeOpenlogin();
   }, []);
 
   async function handleLogin() {
     if (sdkInstance) {
-      const privKey = await sdkInstance.login({
-        loginProvider: "google",
-        redirectUrl: `${window.origin}`,
-      });
-      return privKey;
+      if (isConnected) {
+        await disconnect();
+      } else {
+        const privKey = await sdkInstance.login({
+          loginProvider: "google",
+          redirectUrl: `${window.origin}`,
+        });
+        return privKey;
+      }
     }
   }
 
-  // ... código restante ...
+  const handleSignMessage = async () => {
+    if (sdkInstance) {
+      try {
+        const signature = await sdkInstance.signMessage("Mensaje a firmar");
+        console.log("Firma de mensaje:", signature);
+      } catch (error) {
+        console.error("Error al firmar mensaje:", error);
+      }
+    }
+  };
 
   return (
     <main className={styles.main}>
-      {/* ... código restante ... */}
       <button onClick={handleLogin} className={styles.connectbtn}>
-        Iniciar sesión con Google
+        {isConnected ? "Desconectar wallet" : "Sign in with Google"}
       </button>
-      <div>
-          <Connect />
-        </div>
-      {/* ... código restante ... */}
+      <Connect />
+      <Transfer sdkInstance={sdkInstance} />
+      <Balance sdkInstance={sdkInstance} />
+
     </main>
   );
 }

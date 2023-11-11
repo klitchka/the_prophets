@@ -1,7 +1,6 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./connect.module.css"
-import { useEffect, useState } from 'react'
 import { connect, disconnect } from "starknetkit"
 
 function Connect() {
@@ -18,9 +17,13 @@ function Connect() {
             setAccount(connection.account)
             setAddress(connection.selectedAddress)
         }
-        connectToStarknet()
     }
+    connectToStarknet()
   }, [])
+
+  const requestFunds = async () => {
+    // Aquí es donde puedes lanzar tu transacción para solicitar fondos
+  }
 
   const connectWallet = async() => {
     const connection = await connect( { webWalletUrl: "https://web.argent.xyz" } )
@@ -37,7 +40,7 @@ function Connect() {
     setConnection(undefined)
     setAccount(undefined)
     setAddress('')
-   }
+  }
 
   return (
     <div>
@@ -45,7 +48,9 @@ function Connect() {
           !connection ? 
             <button className={styles.connectbtn} onClick={connectWallet}>Connect</button>
           : 
-            <button className={styles.connectbtn} onDoubleClick={disconnectWallet}>{address.slice(0, 5)}...{address.slice(60, 66)}</button>
+            <>
+              <button className={styles.connectbtn} onDoubleClick={disconnectWallet}>{address.slice(0, 5)}...{address.slice(60, 66)}</button>
+            </>
         }
     </div>
   )
