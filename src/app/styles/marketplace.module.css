@@ -41,7 +41,6 @@
     background-color: #4e4f5a;
     cursor: pointer;
     border: none;
-    padding: 0.9rem;
     border-radius: 25px;
     width: 8rem;
     color: white;
@@ -76,7 +75,6 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    ;
 }
 
 .each_row {
@@ -104,4 +102,4 @@
     width: 50px;
     height: 50px;
     object-fit: contain;
-  }
+}

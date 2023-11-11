@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import {StarknetProvider} from "./components/starknet-provider";
+import { StarknetProvider } from "./components/starknet-provider";
 import styles from "./styles/page.module.css";
 import Link from "next/link";
 import Connect from "./components/Connect";
@@ -25,6 +25,9 @@ export default function RootLayout({ children }) {
             <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
               <Link href="/marketplace">
                 <p style={{ fontSize: 18 }}>Marketplace</p>
+              </Link>
+              <Link href="/bets">
+                <p style={{ fontSize: 18 }}>Bets</p>
               </Link>
               <Connect />
             </div>
