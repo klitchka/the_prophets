@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import StarknetProvider from "./components/starknet-provider";
+import styles from "./styles/page.module.css";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,12 +13,23 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-      <html lang="en">
-        <body className={inter.className}>
-        <StarknetProvider>
-          {children}
-        </StarknetProvider>
-        </body>
-      </html>
+    <html lang="en">
+      <body className={inter.className}>
+        <main className={styles.main}>
+          <div className={styles.navbar}>
+            <Link href="/">
+              <h3>Prophets</h3>
+            </Link>
+            <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+              <Link href="/marketplace">
+                <p style={{ fontSize: 18 }}>Marketplace</p>
+              </Link>
+              <button className={styles.connect_button}>Connect</button>
+            </div>
+          </div>
+          <StarknetProvider>{children}</StarknetProvider>
+        </main>
+      </body>
+    </html>
   );
 }
