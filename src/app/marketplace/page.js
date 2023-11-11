@@ -3,6 +3,9 @@ import { useCallback, useEffect, useState } from "react";
 import styles from "../styles/marketplace.module.css";
 import OpenLogin from "@toruslabs/openlogin";
 import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
+import Arsenal from "../../../public/arsenal.png";
+import Chelsey from "../../../public/chelsey.png";
+import Image from "next/image";
 
 const DATA = [
   {
@@ -127,25 +130,41 @@ function Marketplace() {
                 <div className={styles.each_row} key={index}>
                   <div className={styles.row_match_details}>
                     <div className={styles.team_name}>
-                    <img className={styles.logoSmall} src="/arsenal.png" alt="Arsenal" />
+                      <Image
+                        className={styles.logoSmall}
+                        src={Arsenal}
+                        alt="Arsenal"
+                      />
                       <p>{data.team1}</p>
                     </div>
                     <p>vs</p>
                     <div className={styles.team_name}>
-                    <img className={styles.logoSmall} src="/chelsey.png" alt="Chelsea" />
+                      <Image
+                        className={styles.logoSmall}
+                        src={Chelsey}
+                        alt="Chelsea"
+                      />
                       <p>{data.team2}</p>
                     </div>
                   </div>
                   <div className={styles.row_buttons_container}>
                     <button className={styles.bet_buttons}>
-                      <div className={styles.logo} />
+                      <Image
+                        className={styles.logoSmall}
+                        src={Arsenal}
+                        alt="Arsenal"
+                      />
                       <p>1.59</p>
                     </button>
                     <button className={styles.bet_buttons}>
                       <p>DRAW</p>
                     </button>
                     <button className={styles.bet_buttons}>
-                      <div className={styles.logo} />
+                      <Image
+                        className={styles.logoSmall}
+                        src={Chelsey}
+                        alt="Chelsea"
+                      />
                       <p>5.01</p>
                     </button>
                   </div>
