@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import StarknetProvider from "./components/starknet-provider";
 import styles from "./styles/page.module.css";
 import Link from "next/link";
+import Connect from "./components/Connect";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,7 @@ export default function RootLayout({ children }) {
               <Link href="/marketplace">
                 <p style={{ fontSize: 18 }}>Marketplace</p>
               </Link>
-              <button className={styles.connect_button}>Connect</button>
+              <Connect />
             </div>
           </div>
           <StarknetProvider>{children}</StarknetProvider>
