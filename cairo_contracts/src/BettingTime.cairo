@@ -22,9 +22,9 @@ trait IERC20<T> {
 }
 
 #[starknet::interface]
-trait IBet<TContractState> {
-    fn deposit(ref self: TContractState, list: Span<felt252>) -> bool;//bool to check if the withdraw has been made
-    fn withdraw(ref self: @TContractState) -> bool;//bool to check if the withdraw has been made
+trait BettingTimeTrait<TContractState> {
+    fn takeBet(ref self: TContractState, amount: u256);//bool to check if the withdraw has been made
+    // fn withdraw(ref self: @TContractState) -> bool;//bool to check if the withdraw has been made
 }
 
 #[starknet::contract]
@@ -32,7 +32,8 @@ mod BettingTime {
 
     use array::{ SpanTrait, SpanSerde };
     use starknet::{ContractAddress, get_caller_address, get_contract_address};
-    use super::IBet;
+    use traits::{Into, TryInto};
+    // use super::IBet;
     use super::{IERC20Dispatcher, IERC20DispatcherTrait};
 
     #[storage]
@@ -61,7 +62,7 @@ mod BettingTime {
       amount: u256,
       choice: u8,
     ) {
-
+      assert(amount > 0, 'Amount must be > 0');
       let caller = get_caller_address();
 
       IERC20Dispatcher { contract_address:token }.transfer_from(caller, get_contract_address(), amount);
@@ -69,7 +70,7 @@ mod BettingTime {
       self.token.write(token);
       self.betOwner.write(caller);
       self.game_id.write(game_id);
-      self.amount.write(amount);
+      self.amount.write(amount.into());
       self.choice.write(choice);
       self.balances.write(caller, amount);
       self.players_list.write(self.total_players.read(), caller);
@@ -77,25 +78,35 @@ mod BettingTime {
 
     }
 
-    // #[external(v0)]
-    // impl BettingTime of IBettingTime<ContractState> {
+    #[external(v0)]
+    impl BettingTimeImpl of super::BettingTimeTrait<ContractState> {
 
-    //   fn takeBet(ref self: ContractState, amount: u256) {
+      /// @notice lets a user to take a proposed bet
+      /// @param amount (u256): amount to take for the bet
+      fn takeBet(ref self: ContractState, amount: u256) {
+        // TODO: validate amount limits
+        assert(amount > 0, 'Amount must be > 0');
+        // assert(amount < 0, 'Amount must be > 0');
 
-    //     let caller = get_caller_address();
+        let caller = get_caller_address();
+        assert(self.betOwner.read() != caller, 'Owner can not enter bet twice');
 
-    //     IERC20Dispatcher { token }.transfer_from(caller, get_contract_address(), amount);
+        IERC20Dispatcher { contract_address:self.token.read() }
+          .transfer_from(caller, get_contract_address(), amount);
+        let mut startingBalance = self.balances.read(caller);
 
-    //     // check that the player is not in
-    //     // check the bettter is not owner
+        if startingBalance == 0 {
+          self.balances.write(caller, amount);
+          self.players_list.write(self.total_players.read(), caller);
+          self.total_players.write(self.total_players.read() + 1);
 
-    //     self.balances.write(caller, amount);
-    //     self.players_list.write(self.total_players.read(), caller);
-    //     self.total_players.write(self.total_players.read() + 1);
+        } else {
+          self.balances.write(caller, startingBalance + amount);
+        }
 
-    //   }
+      }
 
-    // }
+    }
 
     // #[external(v0)]
     // impl BetImpl of IBet<ContractState> {
