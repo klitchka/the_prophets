@@ -1,3 +1,4 @@
+"use client";
 import { useAccount, useContractRead } from "@starknet-react/core";
 
 
