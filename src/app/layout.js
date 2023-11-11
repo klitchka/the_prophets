@@ -28,6 +28,9 @@ export default function RootLayout({ children }) {
               </Link>
               <Link href="/bets">
                 <p style={{ fontSize: 18 }}>Bets</p>
+                </Link>
+              <Link href="/profile">
+                <p style={{ fontSize: 18 }}>Profile</p>
               </Link>
               <Connect />
             </div>
