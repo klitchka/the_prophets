@@ -5,6 +5,7 @@ import Image from "next/image";
 import Connect from "./components/Connect";
 import OpenLogin from "@toruslabs/openlogin";
 import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
+import FootballGif from "../../public/football.gif";
 
 function Home() {
   const { connect, connectors } = useConnect();
@@ -19,10 +20,10 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     const sdk = new OpenLogin({
       clientId: "the_prophets",
-      network: "testnet"
+      network: "testnet",
     });
     async function initializeOpenlogin() {
       await sdk.init();
@@ -30,7 +31,7 @@ function Home() {
         // Aquí es donde debes poner tu código real
       }
       setSdk(sdk);
-      setLoading(false)
+      setLoading(false);
     }
     initializeOpenlogin();
   }, []);
@@ -49,13 +50,35 @@ function Home() {
 
   return (
     <main className={styles.main}>
+      <div className={styles.navbar}>
+        <div>
+          <h3>Prophets</h3>
+        </div>
+        <div>
+          <button className={styles.connect_button}>Connect</button>
+        </div>
+      </div>
+
+      <div className={styles.hero_container}>
+        <div className={styles.hero_child_container}>
+          <h1 className={styles.hero_heading}>Sports</h1>
+          <h1 className={styles.hero_heading}>Betting</h1>
+          <h1 className={styles.hero_heading}>Reimagined</h1>
+        </div>
+        <div
+          className={styles.hero_child_container}
+          style={{ alignItems: "center" }}
+        >
+          <Image src={FootballGif} priority className={styles.hero_image} />
+        </div>
+      </div>
       {/* ... código restante ... */}
-      <button onClick={handleLogin} className={styles.connectbtn}>
+      {/* <button onClick={handleLogin} className={styles.connectbtn}>
         Iniciar sesión con Google
       </button>
       <div>
           <Connect />
-        </div>
+        </div> */}
       {/* ... código restante ... */}
     </main>
   );
