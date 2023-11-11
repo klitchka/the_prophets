@@ -33,8 +33,7 @@ mod BettingTime {
     use array::{ SpanTrait, SpanSerde };
     use starknet::{ContractAddress, get_caller_address, get_contract_address};
     use super::IBet;
-    use super::{IERC20Dispatcher,IERC20DispatcherTrait, IERC20LibraryDispatcher};
-    // use super::{IERC20};
+    use super::{IERC20Dispatcher, IERC20DispatcherTrait};
 
     #[storage]
     struct Storage {
@@ -65,8 +64,9 @@ mod BettingTime {
 
       let caller = get_caller_address();
 
-      IERC20Dispatcher { token }.transfer_from(caller, get_contract_address(), amount);
+      IERC20Dispatcher { contract_address:token }.transfer_from(caller, get_contract_address(), amount);
 
+      self.token.write(token);
       self.betOwner.write(caller);
       self.game_id.write(game_id);
       self.amount.write(amount);
@@ -76,6 +76,26 @@ mod BettingTime {
       self.total_players.write(self.total_players.read() + 1);
 
     }
+
+    // #[external(v0)]
+    // impl BettingTime of IBettingTime<ContractState> {
+
+    //   fn takeBet(ref self: ContractState, amount: u256) {
+
+    //     let caller = get_caller_address();
+
+    //     IERC20Dispatcher { token }.transfer_from(caller, get_contract_address(), amount);
+
+    //     // check that the player is not in
+    //     // check the bettter is not owner
+
+    //     self.balances.write(caller, amount);
+    //     self.players_list.write(self.total_players.read(), caller);
+    //     self.total_players.write(self.total_players.read() + 1);
+
+    //   }
+
+    // }
 
     // #[external(v0)]
     // impl BetImpl of IBet<ContractState> {
@@ -108,7 +128,7 @@ mod BettingTime {
 
 
 // #[starknet::interface]
-// trait ITokenLocal<T> {
+// trait ITokenLoca<T> {
 //     fn name(self: @T) -> felt252;
 //     fn totalSupply(self: @T) -> u256;
 //     fn symbol(self: @T) -> felt252;
