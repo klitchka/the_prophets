@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import StarknetProvider from "./components/starknet-provider";
+import {StarknetProvider} from "./components/starknet-provider";
 import styles from "./styles/page.module.css";
 import Link from "next/link";
 import Connect from "./components/Connect";

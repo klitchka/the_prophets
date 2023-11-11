@@ -1,29 +1,15 @@
 "use client";
-
-import { InjectedConnector } from "starknetkit/injected";
-import { ArgentMobileConnector } from "starknetkit/argentMobile";
-import { WebWalletConnector } from "starknetkit/webwallet";
 import { StarknetConfig, publicProvider } from "@starknet-react/core";
-import { goerli, mainnet } from "@starknet-react/chains"
+import { goerli } from "@starknet-react/chains";
+import { connectors } from "./connectors.js";
 
-export default function StarknetProvider({ children }) {
-  const chains = [goerli, mainnet]
-  const providers = [publicProvider()]
-  const connectors = [
-    new InjectedConnector({ options: { id: "argentX", name: "Argent" } }),
-    new InjectedConnector({ options: { id: "braavos", name: "Braavos" } }),
-    new WebWalletConnector({ url: "https://web.argent.xyz" }),
-    new ArgentMobileConnector(),
-  ];
+export const StarknetProvider = ({ children }) => {
+  const chains = [goerli];
+  const provider = publicProvider();
 
   return (
-    <StarknetConfig 
-      chains={chains}
-      providers={providers}
-      connectors={connectors} 
-      autoConnect
-    >
+    <StarknetConfig chains={chains} connectors={connectors} provider={provider}>
       {children}
     </StarknetConfig>
   );
-}
+};
