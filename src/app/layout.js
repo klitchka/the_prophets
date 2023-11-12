@@ -6,6 +6,7 @@ import Link from "next/link";
 import Connect from "./components/Connect";
 import Image from "next/image";
 import Profile from "./profile/page";
+import Transfer from "./components/Transfer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,7 +39,6 @@ export default function RootLayout({ children }) {
             </div>
           </div>
           {children}
-          <Profile />
           </StarknetProvider>
         </main>
       </body>
