@@ -5,6 +5,7 @@ import styles from "./styles/page.module.css";
 import Link from "next/link";
 import Connect from "./components/Connect";
 import Image from "next/image";
+import Profile from "./profile/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <main className={styles.main}>
+        <StarknetProvider>
           <div className={styles.navbar}>
             <Link href="/">
               <Image src="/logo.png" alt="Logo" width={200} height={100} />
@@ -35,7 +37,9 @@ export default function RootLayout({ children }) {
               <Connect />
             </div>
           </div>
-          <StarknetProvider>{children}</StarknetProvider>
+          {children}
+          <Profile />
+          </StarknetProvider>
         </main>
       </body>
     </html>

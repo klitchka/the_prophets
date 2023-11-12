@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from "./connect.module.css"
 import { connect, disconnect } from "starknetkit"
-import Profile from "../profile/page";
 
 function Connect() {
   const [connection, setConnection] = useState('');
@@ -51,7 +50,7 @@ function Connect() {
           : 
             <>
               <button className={styles.connectbtn} onDoubleClick={disconnectWallet}>{address.slice(0, 5)}...{address.slice(60, 66)}</button>
-              <Profile address={address} />
+              
             </>
         }
     </div>
