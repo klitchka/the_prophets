@@ -44,9 +44,11 @@ mod BettingTime {
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState) {
+    fn constructor(ref self: ContractState, tokenAddress: ContractAddress) {
         self.next_bet_id.write(0);
+        self.token.write(tokenAddress);
     }
+
     fn read_oracle(bet_id:u256) -> bool {
       if bet_id % 2 == 0 {
         return true;
