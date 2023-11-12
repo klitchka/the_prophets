@@ -37,6 +37,7 @@ mod BettingTime {
         betOwner: ContractAddress,
         game_id: u256,
         amount: u256,
+        total_bet_allocation: u256,
         choice: bool,
         total_players: u256,
         betConcluded: bool,
@@ -66,6 +67,7 @@ mod BettingTime {
                 betOwner: get_caller_address(),
                 game_id: game_id,
                 amount: amount,
+                total_bet_allocation: 0,
                 choice: choice,
                 total_players: 0,
                 betConcluded: false,
@@ -89,6 +91,7 @@ mod BettingTime {
               self.balances.write((bet_id, caller), amount);
               self.players_list.write((bet_id,bet.total_players), caller);
               bet.total_players += 1;
+              bet.total_bet_allocation += amount;
             } else {
               self.balances.write((bet_id,caller), startingBalance + amount);
             }
@@ -118,9 +121,14 @@ mod BettingTime {
             assert(bet.betResult == claimerSide, 'claimer did not win');
 
             // TODO: calculate earnings
+            to calculate earnings:
+            user_winnnings = user_bet + (user_bet/winner_pool) * looser_pool;
+            let winner_pool = 
+            let user_winnings = bet.amount + ( bet.amount / )
             // TODO: transfer earnings to caller
 
             self.bets.write(bet_id, bet);
         }
     }
 }
+//we need to add total
