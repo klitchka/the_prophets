@@ -3,8 +3,8 @@ mod test{
     use starknet::syscalls::deploy_syscall;
     use result::ResultTrait;
     use array::{ArrayTrait, SpanTrait};
-    use test::erc20::ERC20;
-    use test::erc20::{IERC20Dispatcher, IERC20DispatcherTrait};
+    use betting::erc20::ERC20;
+    use betting::erc20::{IERC20Dispatcher, IERC20DispatcherTrait};
     use starknet::{SyscallResultTrait, ContractAddress, contract_address_const};
     use integer::BoundedInt;
 
