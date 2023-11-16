@@ -1,1 +1,0 @@
-{"version":1,"contracts":[{"id":"4fl58gr3cben0","package_name":"bettingTime","contract_name":"BettingTime","artifacts":{"sierra":"bettingTime_BettingTime.sierra.json","casm":null}},{"id":"opqj8vfc7q1so","package_name":"bettingTime","contract_name":"ERC20","artifacts":{"sierra":"bettingTime_ERC20.sierra.json","casm":null}}]}
